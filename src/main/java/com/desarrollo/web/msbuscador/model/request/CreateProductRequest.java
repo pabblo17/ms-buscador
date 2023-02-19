@@ -12,8 +12,10 @@ import lombok.Setter;
 public class CreateProductRequest {
 
     private String name;
-    private String urlImg;
+    private String imageUrl;
     private Float price;
+    private Float discount;
+    private Boolean enableDiscount;
     private Integer stock;
     private String description;
     private String category;
