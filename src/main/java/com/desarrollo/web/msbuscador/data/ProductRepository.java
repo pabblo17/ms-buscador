@@ -9,5 +9,6 @@ import java.util.List;
 public interface ProductRepository extends ElasticsearchRepository<Product, String> {
 
     List<Product> findAll();
+    List<Product> findAllByEnableDiscount(boolean enableDiscount);
     Product getById(String id);
 }

@@ -23,6 +23,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getProductsEnableDiscount() {
+        return repository.getProductsDiscount();
+    }
+
+    @Override
     public Product getProductById(String id) {
         return repository.getById(id);
     }
@@ -33,10 +38,10 @@ public class ProductServiceImpl implements ProductService {
                 request != null
                         && StringUtils.hasLength(request.getName().trim())
                         && StringUtils.hasLength(request.getImageUrl().trim())
-                        && StringUtils.hasLength(request.getName().trim())
                         && request.getPrice() > (float)0
                         && request.getStock() >= 0
-                        && request.getDiscount() > 0
+                        && request.getDiscount() >= 0
+                        && request.getDiscount() <= 1
                         && StringUtils.hasLength(request.getDescription().trim())
                         && StringUtils.hasLength(request.getCategory().trim())
                         && StringUtils.hasLength(request.getBrand().trim())
@@ -47,9 +52,9 @@ public class ProductServiceImpl implements ProductService {
                     .name(request.getName())
                     .imageUrl(request.getImageUrl())
                     .price(request.getPrice())
+                    .stock(request.getStock())
                     .discount(request.getDiscount())
                     .enableDiscount(request.getEnableDiscount())
-                    .stock(request.getStock())
                     .description(request.getDescription())
                     .category(request.getCategory())
                     .brand(request.getBrand())
@@ -59,6 +64,16 @@ public class ProductServiceImpl implements ProductService {
             return null;
         }
 
+    }
+
+    @Override
+    public List<Product> searchProducts(String name, String description, String category, String brand) {
+        List<Product> products = repository.searchProducts(name, description, category, brand);
+        System.out.println("name = " + name + ", description = " + description + ", category = " + category + ", brand = " + brand);
+        for (Product x:products) {
+            System.out.println(x);
+        }
+        return products.isEmpty() ? null : products;
     }
 
 }

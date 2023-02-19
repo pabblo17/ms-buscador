@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,16 +19,35 @@ public class ProductController {
 
     private final ProductService service;
 
-    @GetMapping(path = "/test")
-    public String getTest(){
-        return "";
+    @GetMapping(path = "/products")
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(value ="enable-discount" ,required = false, defaultValue = "false") Boolean enableDiscount
+    ){
+        List<Product> products = null;
+        if (enableDiscount){
+            products = service.getProductsEnableDiscount();
+        }else {
+            products = service.getProducts();
+        }
+        if (products!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(products);
+        }else {
+
+            return ResponseEntity.badRequest().build();
+        }
     }
 
-    @GetMapping(path = "/products")
-    public ResponseEntity<List<Product>> getProducts(){
-        List<Product> products = service.getProducts();
+    @GetMapping(path = "/products/search")
+    public ResponseEntity<List<Product>> searchProducts(
+            @RequestParam(value ="name" ,required = false, defaultValue = "") String name,
+            @RequestParam(value ="description" ,required = false, defaultValue = "") String description,
+            @RequestParam(value ="category" ,required = false, defaultValue = "") String category,
+            @RequestParam(value ="brand" ,required = false, defaultValue = "") String brand
+    ){
+        List<Product> products = service.searchProducts(name, description,category, brand);
+
         if (products!=null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(products);
+            return ResponseEntity.status(HttpStatus.OK).body(products);
         }else {
 
             return ResponseEntity.badRequest().build();
@@ -54,5 +74,4 @@ public class ProductController {
             return ResponseEntity.badRequest().build();
         }
     }
-
 }

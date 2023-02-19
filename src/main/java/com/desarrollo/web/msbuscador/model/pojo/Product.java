@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.annotations.*;
 @Setter
 @NoArgsConstructor
 @Builder
+@ToString
 public class Product {
 
     public Product(String id, String name, String urlImg, Float price, Float discount,Boolean enableDiscount, Integer stock, String description, String category, String brand) {
@@ -22,7 +23,7 @@ public class Product {
         this.description = description;
         this.category = category;
         this.brand = brand;
-        if (enableDiscount && discount > 0){
+        if (enableDiscount && discount >= 0){
             this.price = price - price*discount;
         }
     }
@@ -35,21 +36,21 @@ public class Product {
     )
     private String name;
 
-    @Field(type = FieldType.Keyword, name = "image_url")
+    @Field(type = FieldType.Keyword, name = "imageUrl")
     private String imageUrl;
 
-    @Field(type = FieldType.Float, name = "country")
+    @Field(type = FieldType.Float, name = "price")
     private Float price;
 
     @Field(type = FieldType.Float, name = "discount")
     private Float discount;
-    @Field(type = FieldType.Boolean, name = "enable_discount")
-    private Boolean enableDiscount;
+    @Field(type = FieldType.Boolean, name = "enableDiscount")
+    private Boolean enableDiscount  ;
 
     @Field(type = FieldType.Integer, name = "stock")
     private Integer stock;
 
-    @MultiField(mainField = @Field(type = FieldType.Keyword, name = "description"),
+    @MultiField(mainField = @Field(type = FieldType.Text, name = "description"),
             otherFields = @InnerField(suffix = "search", type = FieldType.Search_As_You_Type)
     )
     private String description;
