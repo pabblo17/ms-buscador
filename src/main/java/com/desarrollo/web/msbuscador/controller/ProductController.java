@@ -41,7 +41,7 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.OK).body(products);
         }else {
 
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -53,8 +53,7 @@ public class ProductController {
         if (products!=null){
             return ResponseEntity.status(HttpStatus.OK).body(products);
         }else {
-
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -62,10 +61,9 @@ public class ProductController {
     public ResponseEntity<Product> getProductById(@PathVariable String id){
         Product products = service.getProductById(id);
         if (products!=null){
-            return ResponseEntity.status(HttpStatus.CREATED).body(products);
+            return ResponseEntity.status(HttpStatus.OK).body(products);
         }else {
-
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
     }
