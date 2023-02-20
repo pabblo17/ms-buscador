@@ -19,6 +19,14 @@ public class ProductController {
 
     private final ProductService service;
 
+    @GetMapping(path = "/")
+    public ResponseEntity<String> healthy(
+          ){
+
+        return ResponseEntity.ok("OK");
+
+    }
+
     @GetMapping(path = "/products")
     public ResponseEntity<List<Product>> getProducts(
             @RequestParam(value ="enable-discount" ,required = false, defaultValue = "false") Boolean enableDiscount
