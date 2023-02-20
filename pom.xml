@@ -19,7 +19,12 @@
         <elasticsearch.custom.version>7.10.2</elasticsearch.custom.version>
     </properties>
     <dependencies>
+        <!-- EUREKA -->
 
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
 
         <!-- ELASTICSEARCH -->
 
@@ -49,23 +54,24 @@
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
             <version>${elasticsearch.custom.version}</version>
         </dependency>
-        <!-- ELASTICSEARCH -->
 
 
+        <!-- SPRING BOOT -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- OTHERS -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
     <dependencyManagement>
