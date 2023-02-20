@@ -23,6 +23,7 @@ public class ElasticsearchRepository {
 
     private final String [] nameSearchFields = {"name.search", "name.search._2gram", "name.search._3gram"};
     private final String [] descriptionSearchFields = {"description.search", "description.search._2gram", "description.search._3gram"};
+    private final String [] categorySearchFields = {"category.search", "category.search._2gram", "category.search._3gram"};
 
     private final ProductRepository productRepository;
 
@@ -44,14 +45,18 @@ public class ElasticsearchRepository {
         return productRepository.save(product);
     }
 
-    public List<Product> searchProducts(String name, String description, String category, String brand){
+    public List<Product> searchProducts(String term){
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
-        boolQuery.should(QueryBuilders.matchQuery("name", name))
-                /*.must(QueryBuilders.multiMatchQuery(description, descriptionSearchFields)
-                        .type(MultiMatchQueryBuilder.Type.BOOL_PREFIX))*/
-                .should(QueryBuilders.termQuery("category", category))
-                .should(QueryBuilders.matchQuery("brand", brand));
+        boolQuery.should(QueryBuilders.matchQuery("name", term))
+                .should(QueryBuilders.multiMatchQuery(term, descriptionSearchFields)
+                        .type(MultiMatchQueryBuilder.Type.BOOL_PREFIX))
+                .should(QueryBuilders.multiMatchQuery(term, nameSearchFields)
+                        .type(MultiMatchQueryBuilder.Type.BOOL_PREFIX))
+                .should(QueryBuilders.multiMatchQuery(term, categorySearchFields)
+                        .type(MultiMatchQueryBuilder.Type.BOOL_PREFIX))
+                .should(QueryBuilders.matchQuery("category", term))
+                .should(QueryBuilders.matchQuery("brand", term));
 
         NativeSearchQueryBuilder nativeSearchQueryBuilder =
                 new NativeSearchQueryBuilder().withQuery(boolQuery);

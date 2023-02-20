@@ -67,9 +67,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> searchProducts(String name, String description, String category, String brand) {
-        List<Product> products = repository.searchProducts(name, description, category, brand);
-        System.out.println("name = " + name + ", description = " + description + ", category = " + category + ", brand = " + brand);
+    public List<Product> searchProducts(String term) {
+        List<Product> products = repository.searchProducts(term);
         for (Product x:products) {
             System.out.println(x);
         }

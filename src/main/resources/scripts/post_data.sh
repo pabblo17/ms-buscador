@@ -179,3 +179,60 @@ curl --location $END_POINT --header 'Content-Type: application/json' --data '
 "enableDiscount": false,
 "description": "The Echo Auto is an Alexa-controlled voice device for your car that allows you to play music, get directions and much more while driving."
 }'
+
+
+
+
+
+
+
+echo -e "\n"
+curl --location $END_POINT --header 'Content-Type: application/json' --data '
+{
+"name": "Echo Auto",
+"brand": "Amazon",
+"price": 49.99,
+"stock": 100,
+"stockUsed": 20,
+"category": "Voice Assistant",
+"imageUrl": "url-img",
+"discount": 0.2,
+"enableDiscount": false,
+"description": "Ejemplo The Echo Auto is an Alexa-controlled voice device for your car that allows you to play music, get directions and much more while driving."
+}'
+
+
+
+
+echo -e "\n"
+curl --location $END_POINT --header 'Content-Type: application/json' --data '
+{
+"name": "Echo Auto",
+"brand": "Amazon",
+"price": 49.99,
+"stock": 100,
+"stockUsed": 20,
+"category": "Ejemplo Voice Assistant",
+"imageUrl": "url-img",
+"discount": 0.2,
+"enableDiscount": false,
+"description": "The Echo Auto is an Alexa-controlled voice device for your car that allows you to play music, get directions and much more while driving."
+}'
+
+
+
+
+echo -e "\n"
+curl --location $END_POINT --header 'Content-Type: application/json' --data '
+{
+"name": "Ejemplo Echo Auto",
+"brand": "Ejemplo Amazon",
+"price": 49.99,
+"stock": 100,
+"stockUsed": 20,
+"category": "Voice Assistant",
+"imageUrl": "url-img",
+"discount": 0.2,
+"enableDiscount": false,
+"description": "The Echo Auto is an Alexa-controlled voice device for your car that allows you to play music, get directions and much more while driving."
+}'

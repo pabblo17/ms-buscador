@@ -47,13 +47,9 @@ public class ProductController {
 
     @GetMapping(path = "/products/search")
     public ResponseEntity<List<Product>> searchProducts(
-            @RequestParam(value ="name" ,required = false, defaultValue = "") String name,
-            @RequestParam(value ="description" ,required = false, defaultValue = "") String description,
-            @RequestParam(value ="category" ,required = false, defaultValue = "") String category,
-            @RequestParam(value ="brand" ,required = false, defaultValue = "") String brand
+            @RequestParam(value ="q" ,required = false, defaultValue = "") String term
     ){
-        List<Product> products = service.searchProducts(name, description,category, brand);
-
+        List<Product> products = service.searchProducts(term);
         if (products!=null){
             return ResponseEntity.status(HttpStatus.OK).body(products);
         }else {
