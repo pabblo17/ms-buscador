@@ -10,5 +10,5 @@ public interface ProductService {
     List<Product> getProductsEnableDiscount();
     Product getProductById(String id);
     Product createProduct(CreateProductRequest request);
-    List<Product> searchProducts (String name, String description, String category, String brand);
+    List<Product> searchProducts (String term);
 }
